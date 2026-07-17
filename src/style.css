@@ -22,11 +22,12 @@ html{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: var(--space-3);
+    /* gap: var(--space-2); */
 }
 
 
 #left{
+    
     height: 100%;
     width: 70%;
     padding: var(--space-10);
@@ -111,7 +112,64 @@ background-color: var(--color-peace);
 
 
 #right{
-    height: 100%;
+    height: 89%;
     width: 30%;
     background-color: var(--color-surface);
+    align-self: flex-end;
+    margin-bottom: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+    border-radius: var(--radius-sm);
+    margin-right: var(--space-3);
+} 
+
+#right > h2{
+    color: var(--color-peace);
+    margin-bottom: var(--space-5);
+    font-weight: var(--font-medium);
+}
+
+#filters{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-7);
+}
+
+
+.filter{
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    font-weight: var(--font-light);
+}
+
+.filter > label{
+    color: var(--color-peace);
+}
+
+ input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 2px;            
+  background: #fafafa;
+  border-radius: 10px;
+}
+
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: red;          
+  margin-top: -7px;         
+
+  cursor: pointer;
 }
