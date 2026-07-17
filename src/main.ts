@@ -176,13 +176,17 @@ imageInput.addEventListener("change",(e)=>{
 
 
 
-function applyFilters(){  
+function applyFilters(){ 
+   
+  ctx.clearRect(0, 0, imageCanvas.width, imageCanvas.height);     
+  
   ctx.filter = `brightness(${filters.brightness.value}${filters.brightness.unit}) 
   contrast(${filters.contrast.value}${filters.contrast.unit}) 
   saturate(${filters.saturation.value}${filters.saturation.unit})
    hue-rotate(${filters.hueRotation.value}${filters.hueRotation.unit}) 
    blur(${filters.blur.value}${filters.blur.unit}) 
-  grayscale(${filters.grayscale.value}${filters.grayscale.unit}) sepia(${filters.sepia.value}${filters.sepia.unit}) 
+  grayscale(${filters.grayscale.value}${filters.grayscale.unit})
+   sepia(${filters.sepia.value}${filters.sepia.unit}) 
   opacity(${filters.opacity.value}${filters.opacity.unit})
  invert(${filters.invert.value}${filters.invert.unit})`;
   if (!image) return;
