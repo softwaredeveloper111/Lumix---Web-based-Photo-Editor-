@@ -7,6 +7,8 @@
     <title>Lumix📷</title>
   </head>
   <body>
+
+
     <div id="app">
 
          <div id="left">
@@ -14,8 +16,8 @@
           <div id="left-top">
              
              <div>
-               <label for="choose-image"  class="filter-btns filter-btn1">Choose Image</label>
-                <input type="file" name="choose-image" id="choose-image" hidden>
+               <label for="image-input"  class="filter-btns filter-btn1">Choose Image</label>
+                <input type="file" name="image-input" id="image-input" hidden>
              </div>
              <button class="filter-btns filter-btn2">Reset</button>
              <button class="filter-btns filter-btn3">Download</button>
@@ -25,9 +27,13 @@
           <div id="left-bottom">
                <div id="placeholder-image">
                   <i class="ri-image-add-line"></i>
-                  <p>No chosen image</p>
+                  <p>No image chosen</p>
                </div>
+
+               <canvas id="image-canvas" hidden></canvas>
+
           </div>
+
          </div>
 
 
@@ -38,7 +44,11 @@
 
          </div>
 
+         </div>
+
     </div>
+
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

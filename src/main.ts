@@ -4,6 +4,15 @@ import 'remixicon/fonts/remixicon.css'
 
 
 
+ const filtersContainerDiv = document.getElementById("filters") as HTMLDivElement;
+ const imageCanvas = document.getElementById("image-canvas") as HTMLCanvasElement;
+ const imageInput  = document.getElementById("image-input") as HTMLInputElement;
+ const ctx = imageCanvas.getContext("2d") as CanvasRenderingContext2D;
+ const placeholderImage = document.querySelector("#placeholder-image") as HTMLDivElement;
+
+
+
+
 interface FilterType  {
   value:string;
   min:string;
@@ -120,10 +129,33 @@ function createElement(name:string,value:string,min:string,max:string):HTMLDivEl
 Object.keys(filters).forEach(filterName=>{
   const key = filterName as keyof typeof filters;
   //  console.log(filterName,filters[key])
-  const filtersContainerDiv = document.getElementById("filters") as HTMLDivElement;
   filtersContainerDiv.appendChild(createElement(filterName, filters[key].value, filters[key].min, filters[key].max));
 })
 
 
 
 
+
+/** load image after choose the image */
+
+imageInput.addEventListener("change",(e)=>{
+   
+  const input = e.target as HTMLInputElement;
+   const file: File | null  = input.files?.[0]!;
+  //  console.log(file)
+
+   const img = new Image();
+   img.src = URL.createObjectURL(file as File);
+   
+  //  console.log(img)
+  /** this callback will run when my image is loaded */
+    img.onload = function(){
+      placeholderImage.style.display = "none";
+      imageCanvas.hidden = false;
+      imageCanvas.width = img.width;
+      imageCanvas.height = img.height;
+      ctx.drawImage(img, 0, 0);
+    }
+
+
+})

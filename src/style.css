@@ -98,12 +98,20 @@ background-color: var(--color-peace);
 
 #placeholder-image > i{
     font-size: var(--text-5xl);
+    color: var(--color-text-muted);
 }
 
 #placeholder-image > p{
     color: var(--color-text-secondary);
 }
 
+
+
+#image-canvas{
+    max-width: 90%;
+    max-height: 85%;
+    object-fit: cover;
+}
 
 
 
@@ -173,3 +181,5 @@ input[type="range"]::-webkit-slider-thumb {
 
   cursor: pointer;
 }
+
+
