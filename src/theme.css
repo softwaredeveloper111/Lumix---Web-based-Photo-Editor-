@@ -26,9 +26,10 @@
   --color-divider: #f1f5f9;
 
   /* Status */
-  --color-success: #22c55e;
+  --color-peace:#ffffff;
+  --color-success: #15ac4c;
   --color-warning: #f59e0b;
-  --color-error: #ef4444;
+  --color-error: #ce3a3a;
   --color-info: #3b82f6;
 
 

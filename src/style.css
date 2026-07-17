@@ -30,9 +30,41 @@ html{
     height: 100%;
     width: 70%;
     background-color: var(--color-surface);
+    padding: var(--space-10);
 }
 
 
+#left-top{
+   
+    display: flex;
+    justify-content: center;
+    gap:var(--space-10)
+}
+
+
+.filter-btns{
+    padding: var(--space-2) var(--space-3);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    border: none;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    letter-spacing: .4px;
+}
+
+
+
+.filter-btn1{
+background-color: var(--color-peace);
+}
+.filter-btn2{
+    background-color: var(--color-error);
+    color: var(--color-peace);
+}
+.filter-btn3{
+    background-color: var(--color-success);
+    color: var(--color-peace);
+}
 
 
 
