@@ -130,7 +130,7 @@ background-color: var(--color-peace);
     margin-right: var(--space-3);
 } 
 
-#right > h2{
+#right .filters-container h2{
     color: var(--color-peace);
     margin-bottom: var(--space-5);
     font-weight: var(--font-medium);
@@ -183,3 +183,26 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 
+
+#right .presets-container h2{
+    color: var(--color-peace);
+    margin-top: var(--space-7);
+    font-weight: var(--font-medium);
+}
+
+
+
+#presets-btns{
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+    margin-top: var(--space-3);
+}
+
+#presets-btns >button{
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--color-peace);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+}

@@ -13,6 +13,7 @@ import 'remixicon/fonts/remixicon.css'
  let image: HTMLImageElement | null = null;
  const resetBtn = document.querySelector(".reset-btn") as HTMLButtonElement; 
 const downloadBtn = document.querySelector(".download-btn") as HTMLButtonElement;
+const presetsContainer = document.querySelector("#presets-btns") as HTMLDivElement;
 
 
 
@@ -98,6 +99,11 @@ let filters:Filter<FilterType> = {
      unit:"%"
   }
 }
+
+
+
+
+
 
 
 
@@ -271,4 +277,221 @@ downloadBtn.addEventListener("click",()=>{
   link.download = "filtered-image.png";
   link.href = imageCanvas.toDataURL();
   link.click();
+})
+
+
+
+
+
+
+/** preset setting */
+
+interface Preset {
+  brightness:string,
+  contrast:string,
+  saturation:string,
+  hueRotation:string,
+  blur:string,
+  grayscale:string,
+  sepia:string,
+  opacity:string,
+  invert:string
+}
+
+interface Presets<T = Preset> {
+  [key: string]: T;
+}
+
+const presets: Presets = {
+  Original: {
+    brightness: "100",
+    contrast: "100",
+    saturation: "100",
+    hueRotation: "0",
+    blur: "0",
+    grayscale: "0",
+    sepia: "0",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Drama: {
+    brightness: "90",
+    contrast: "150",
+    saturation: "115",
+    hueRotation: "0",
+    blur: "0",
+    grayscale: "0",
+    sepia: "10",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Vintage: {
+    brightness: "105",
+    contrast: "90",
+    saturation: "75",
+    hueRotation: "10",
+    blur: "0",
+    grayscale: "10",
+    sepia: "55",
+    opacity: "100",
+    invert: "0",
+  },
+
+  OldSchool: {
+    brightness: "95",
+    contrast: "85",
+    saturation: "60",
+    hueRotation: "0",
+    blur: "0",
+    grayscale: "35",
+    sepia: "80",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Noir: {
+    brightness: "95",
+    contrast: "170",
+    saturation: "0",
+    hueRotation: "0",
+    blur: "0",
+    grayscale: "100",
+    sepia: "0",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Cinematic: {
+    brightness: "95",
+    contrast: "130",
+    saturation: "120",
+    hueRotation: "-8",
+    blur: "0",
+    grayscale: "0",
+    sepia: "8",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Warm: {
+    brightness: "105",
+    contrast: "105",
+    saturation: "120",
+    hueRotation: "8",
+    blur: "0",
+    grayscale: "0",
+    sepia: "20",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Cool: {
+    brightness: "100",
+    contrast: "105",
+    saturation: "110",
+    hueRotation: "-12",
+    blur: "0",
+    grayscale: "0",
+    sepia: "0",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Dreamy: {
+    brightness: "110",
+    contrast: "85",
+    saturation: "110",
+    hueRotation: "5",
+    blur: "2",
+    grayscale: "0",
+    sepia: "12",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Fade: {
+    brightness: "110",
+    contrast: "75",
+    saturation: "85",
+    hueRotation: "0",
+    blur: "0",
+    grayscale: "15",
+    sepia: "15",
+    opacity: "90",
+    invert: "0",
+  },
+
+  Retro: {
+    brightness: "108",
+    contrast: "95",
+    saturation: "80",
+    hueRotation: "18",
+    blur: "0",
+    grayscale: "20",
+    sepia: "45",
+    opacity: "100",
+    invert: "0",
+  },
+
+  HighContrast: {
+    brightness: "100",
+    contrast: "180",
+    saturation: "110",
+    hueRotation: "0",
+    blur: "0",
+    grayscale: "0",
+    sepia: "0",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Soft: {
+    brightness: "108",
+    contrast: "92",
+    saturation: "105",
+    hueRotation: "0",
+    blur: "1",
+    grayscale: "0",
+    sepia: "5",
+    opacity: "100",
+    invert: "0",
+  },
+
+  Inverted: {
+    brightness: "100",
+    contrast: "100",
+    saturation: "100",
+    hueRotation: "180",
+    blur: "0",
+    grayscale: "0",
+    sepia: "0",
+    opacity: "100",
+    invert: "100",
+  },
+};
+
+
+
+Object.keys(presets).forEach(presetName => {
+   const btn = document.createElement("button") as HTMLButtonElement;
+    btn.textContent = presetName;
+    presetsContainer.appendChild(btn);
+    btn.addEventListener("click",()=>{
+      const presetObj = presets[presetName];
+      // console.log(presetObj)
+      
+      Object.keys(presetObj).forEach(filterName=>{
+        const key = filterName as keyof typeof filters;
+        filters[key].value = presetObj[filterName as keyof Preset];
+      });
+
+      applyFilters();
+      filtersContainerDiv.innerHTML = "";
+      createFilters();
+
+
+    })
+      
 })
