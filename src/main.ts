@@ -11,7 +11,9 @@ import 'remixicon/fonts/remixicon.css'
  const placeholderImage = document.querySelector("#placeholder-image") as HTMLDivElement;
  let file:File | null = null;
  let image: HTMLImageElement | null = null;
- 
+ const resetBtn = document.querySelector(".reset-btn") as HTMLButtonElement; 
+const downloadBtn = document.querySelector(".download-btn") as HTMLButtonElement;
+
 
 
 interface FilterType  {
@@ -39,7 +41,7 @@ interface Filter<T>{
 
 
 
-const filters:Filter<FilterType> = {
+let filters:Filter<FilterType> = {
   brightness:{
     value:"100",
     min:"0",
@@ -135,15 +137,15 @@ function createFilterElement(name:string,value:string,min:string,max:string):HTM
 
 
 
-
+function createFilters(){
 Object.keys(filters).forEach(filterName=>{
   const key = filterName as keyof typeof filters;
   //  console.log(filterName,filters[key])
   filtersContainerDiv.appendChild(createFilterElement(filterName, filters[key].value, filters[key].min, filters[key].max));
 })
+}
 
-
-
+createFilters()
 
 
 /** load image after choose the image */
@@ -196,5 +198,77 @@ function applyFilters(){
 
 
 
+/** reset all filters to default values */
+resetBtn.addEventListener("click",()=>{
+
+  filters = {
+  brightness:{
+    value:"100",
+    min:"0",
+    max:"200",
+    unit:"%"
+  },
+  contrast:{
+    value:"100",
+    min:"0",
+    max:"200",
+    unit:"%"
+  },
+
+  saturation:{
+     value:"100",
+     min:"0",
+     max:"200",
+     unit:"%"
+  },
+  hueRotation:{
+    value:"0",
+    min:"0",
+    max:"360",
+    unit:"deg",
+  },
+  blur:{
+    value:"0",
+    min:"0",
+    max:"20",
+    unit:"px"
+  },
+  grayscale:{
+    value:"0",
+    min:"0",
+    max:"100",
+    unit:"%"
+  },
+  sepia:{
+    value:"0",
+    min:"0",
+    max:"100",
+    unit:"%"
+  },
+  opacity:{
+    value:"100",
+    min:"0",
+    max:"100",
+    unit:"%",
+  },
+  invert:{
+     value:"0",
+     min:"0",
+     max:"100",
+     unit:"%"
+  }
+}
+  applyFilters();
+  filtersContainerDiv.innerHTML = "";
+  createFilters();
+})
 
 
+
+/** download filtered image */
+downloadBtn.addEventListener("click",()=>{
+  const link = document.createElement("a");
+  link.download = "filtered-image.png";
+  link.href = imageCanvas.toDataURL();
+  link.click();
+})
