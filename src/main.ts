@@ -9,8 +9,9 @@ import 'remixicon/fonts/remixicon.css'
  const imageInput  = document.getElementById("image-input") as HTMLInputElement;
  const ctx = imageCanvas.getContext("2d") as CanvasRenderingContext2D;
  const placeholderImage = document.querySelector("#placeholder-image") as HTMLDivElement;
-
-
+ let file:File | null = null;
+ let image: HTMLImageElement | null = null;
+ 
 
 
 interface FilterType  {
@@ -98,7 +99,7 @@ const filters:Filter<FilterType> = {
 
 
 
-function createElement(name:string,value:string,min:string,max:string):HTMLDivElement {
+function createFilterElement(name:string,value:string,min:string,max:string):HTMLDivElement {
   
   const div = document.createElement("div") as HTMLInputElement;
   div.classList.add("filter");
@@ -117,6 +118,15 @@ function createElement(name:string,value:string,min:string,max:string):HTMLDivEl
   input.value = value;
 
 
+  input.addEventListener("input",(e)=>{
+    const target = e.target as HTMLInputElement;
+    const key = target.name as keyof typeof filters;
+    filters[key].value = target.value;
+    // console.log(filters[key])
+    applyFilters()
+  })
+
+
   div.appendChild(p);
   div.appendChild(input);
   return div
@@ -129,7 +139,7 @@ function createElement(name:string,value:string,min:string,max:string):HTMLDivEl
 Object.keys(filters).forEach(filterName=>{
   const key = filterName as keyof typeof filters;
   //  console.log(filterName,filters[key])
-  filtersContainerDiv.appendChild(createElement(filterName, filters[key].value, filters[key].min, filters[key].max));
+  filtersContainerDiv.appendChild(createFilterElement(filterName, filters[key].value, filters[key].min, filters[key].max));
 })
 
 
@@ -141,7 +151,7 @@ Object.keys(filters).forEach(filterName=>{
 imageInput.addEventListener("change",(e)=>{
    
   const input = e.target as HTMLInputElement;
-   const file: File | null  = input.files?.[0]!;
+    file = input.files?.[0]!;
   //  console.log(file)
 
    const img = new Image();
@@ -150,6 +160,7 @@ imageInput.addEventListener("change",(e)=>{
   //  console.log(img)
   /** this callback will run when my image is loaded */
     img.onload = function(){
+      image = img;
       placeholderImage.style.display = "none";
       imageCanvas.hidden = false;
       imageCanvas.width = img.width;
@@ -159,3 +170,27 @@ imageInput.addEventListener("change",(e)=>{
 
 
 })
+
+
+
+
+
+
+function applyFilters(){  
+  ctx.filter = `brightness(${filters.brightness.value}${filters.brightness.unit}) 
+  contrast(${filters.contrast.value}${filters.contrast.unit}) 
+  saturate(${filters.saturation.value}${filters.saturation.unit})
+   hue-rotate(${filters.hueRotation.value}${filters.hueRotation.unit}) 
+   blur(${filters.blur.value}${filters.blur.unit}) 
+  grayscale(${filters.grayscale.value}${filters.grayscale.unit}) sepia(${filters.sepia.value}${filters.sepia.unit}) 
+  opacity(${filters.opacity.value}${filters.opacity.unit})
+ invert(${filters.invert.value}${filters.invert.unit})`;
+  if (!image) return;
+   ctx.drawImage(image, 0, 0);
+}
+
+
+
+
+
+
